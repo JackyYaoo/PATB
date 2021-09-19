@@ -1,0 +1,40 @@
+#include<cstdio>
+#include<cstring>
+#define N 200005
+int p[N];
+int prime[N];
+int k=0;
+void prime_table(){
+        for(int i=2;i<N;i++){
+        	if(p[i] == 0){
+        		prime[k++] = i;
+        		for(int j=i;j < N;j+=i){
+        			p[j] = 1;
+				}
+			}
+		}  
+} 
+int main(){
+	int n;
+	scanf("%d",&n);
+	int ans = 0;
+	if(n <= 2){
+		printf("0\n");
+		return 0;
+	}
+	if(n==3){
+		printf("1\n");
+		return 0;
+	}
+        memset(p,0,sizeof(p));
+	prime_table();
+	for(int i=2;prime[i+1] <= n;i++){
+		if(prime[i+1] - prime[i] == 2){
+			ans++;
+			i++;
+		}
+	}
+	printf("%d\n",ans+1);
+	return 0;
+}
+
